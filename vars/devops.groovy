@@ -1,7 +1,7 @@
-import com.hcye.hello
-def hello1(String aa){
-    return new hello().init(aa)
+import com.hcye.build
+def docker(String repo, String tag, String credentialsId, String dockerfile="Dockerfile", String context="."){
+    return new build().init( repo,  tag,  credentialsId,  dockerfile="Dockerfile",  context=".")
 }
 
 
-hello1("hello world").bb().cc()
+docker('harbor.synsense-neuromorphic.com/local/ci-tools:withsonar','latest','dockerid').docker_login()
