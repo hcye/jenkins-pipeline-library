@@ -38,7 +38,7 @@ def getRegistry(){
 }
 
 def push() {
-    this.login()
+    this.docker_login()
     retry(3) {
         try {
             sh "docker push ${this.fullAddress}"
