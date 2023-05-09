@@ -1,7 +1,7 @@
 import hello
-def init(String aa){
+def hello(String aa){
     return new hello().init(aa)
 }
 
 
-init("hello world").bb().cc()
+hello("hello world").bb().cc()
