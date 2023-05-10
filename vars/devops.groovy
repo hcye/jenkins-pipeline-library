@@ -9,5 +9,5 @@ def scan(String projectVersion="", Boolean waitScan = true){
 }
 
 def deploy(resourcePath){
-    new deploy().init(resourcePath)
+    return new deploy().init(resourcePath)
 }
