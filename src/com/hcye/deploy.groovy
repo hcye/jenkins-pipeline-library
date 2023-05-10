@@ -13,7 +13,6 @@ def start(){
         sh "sed -i 's#{{ELADMIN-IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
         sh "cat ${this.resourcePath}/eladmin-api.yaml"
         //  CURRENT_IMAGE
-        sh
         def proc = "kubectl apply -f ${this.resourcePath}/".execute()
         def b = new StringBuffer()
         proc.consumeProcessErrorStream(b)
