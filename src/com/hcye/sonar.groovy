@@ -3,6 +3,7 @@ package com.hcye
 def init(String projectVersion="", Boolean waitScan = true) {
     this.waitScan = waitScan
     if (projectVersion == ""){
+        sh 'git config --global --add safe.directory ${WORKSPACE}'
         projectVersion = sh(returnStdout: true, script: 'git log --oneline -n 1|cut -d " " -f 1')  //get commit id
     }
     sh "echo '\nsonar.projectVersion=${projectVersion}' >> sonar-project.properties"
