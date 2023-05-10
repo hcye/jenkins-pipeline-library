@@ -92,7 +92,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/root/IdeaProjects/global-shared-library",
+    "last_opened_file_path": "/home/hcye/docker/eladmin/eladmin",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -147,7 +147,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683538433646</updated>
       <workItem from="1683538435101" duration="1327000" />
-      <workItem from="1683616703492" duration="6253000" />
+      <workItem from="1683616703492" duration="6945000" />
     </task>
     <servers />
   </component>
