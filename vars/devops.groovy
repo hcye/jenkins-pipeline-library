@@ -7,3 +7,7 @@ def docker(String repo, String tag, String credentialsId, String dockerfile="Doc
 def scan(String projectVersion="", Boolean waitScan = true){
     return new sonar().init(projectVersion,waitScan)
 }
+
+def deploy(resourcePath){
+    new deploy().init(resourcePath)
+}

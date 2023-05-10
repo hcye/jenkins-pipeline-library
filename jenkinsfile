@@ -1,0 +1,72 @@
+@Library('helloworld') _
+
+pipeline {
+    agent { label 'jnlp-slave'}
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+        gitLabConnection('jenkins')
+    }
+    environment {
+        IMAGE_REPO = "harbor.synsense-neuromorphic.com/local/eladmin-api"
+        IMAGE_CREDENTIAL = "docker-user-pwd"
+    }
+    stages {
+         stage('printenv') {
+                    steps {
+                        container('ci-tools') {
+                           sh """
+                              printenv
+                           """
+                        }
+                    }
+                }
+        stage('checkout') {
+            steps {
+                container('ci-tools') {
+                    checkout scm
+                }
+            }
+        }
+        stage('docker-image') {
+            steps {
+                container('ci-tools') {
+                    script{
+                        devops.docker(
+                            "${IMAGE_REPO}",
+                            "${GIT_COMMIT}",
+                            IMAGE_CREDENTIAL
+                        ).build().push()
+                    }
+                }
+            }
+        }
+        stage('CI'){
+            failFast true
+            parallel {
+                stage('Unit Test') {
+                    steps {
+                        echo "Unit Test Stage Skip..."
+                    }
+                }
+                stage('Code Scan') {
+                    steps {
+                        container('ci-tools') {
+                            script {
+                               devops.scan().start()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Congratulations!'
+        }
+        failure {
+            echo 'Oh no!'
+        }
+    }
+}

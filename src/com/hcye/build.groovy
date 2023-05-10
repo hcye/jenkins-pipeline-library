@@ -9,6 +9,7 @@ def init(String repo, String tag, String credentialsId, String dockerfile="Docke
     this.context=context
     this.isLoggedIn=false
     this.fullAddress = "${this.repo}:${this.tag}"
+    env.CURRENT_IMAGE=this.fullAddress
     return this
 }
 

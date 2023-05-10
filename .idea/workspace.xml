@@ -96,13 +96,24 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
-  <component name="RunManager" selected="Groovy.devops (1)">
+  <component name="RunManager" selected="Groovy.deploy">
     <configuration name="Main" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
       <module name="global-shared-library" />
       <setting name="path" value="file://$PROJECT_DIR$/src/hello.groovy" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workDir" value="file://$PROJECT_DIR$/src" />
+      <setting name="debug" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="deploy" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
+      <module name="global-shared-library" />
+      <setting name="path" value="file://$PROJECT_DIR$/src/com/hcye/deploy.groovy" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$/src/com/hcye" />
       <setting name="debug" value="false" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -132,6 +143,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Groovy.deploy" />
         <item itemvalue="Groovy.devops (1)" />
         <item itemvalue="Groovy.devops" />
         <item itemvalue="Groovy.Main" />
@@ -147,7 +159,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683538433646</updated>
       <workItem from="1683538435101" duration="1327000" />
-      <workItem from="1683616703492" duration="7557000" />
+      <workItem from="1683616703492" duration="10043000" />
     </task>
     <servers />
   </component>
