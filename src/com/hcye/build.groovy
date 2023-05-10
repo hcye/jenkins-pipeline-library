@@ -21,7 +21,9 @@ def docker_login(){
         def regs = this.getRegistry()
         retry(3) {
             try {
+                String stage = "${env.stage_name}-login"
                 sh "docker login ${regs} -u $USERNAME -p $PASSWORD"
+                updateGitlabCommitStatus(name: "${stage}", state: 'success')
                 this.isLoggedIn=true
             } catch (Exception exc) {
                 echo "docker login err, " + exc.toString()
@@ -42,6 +44,8 @@ def push() {
     retry(3) {
         try {
             sh "docker push ${this.fullAddress}"
+            String stage = "${env.stage_name}-push"
+            updateGitlabCommitStatus(name: "${stage}", state: 'success')
         }catch (Exception exc) {
             throw exc
         }
@@ -54,6 +58,8 @@ def build(){
     retry(3) {   // retry three times
         try {
             sh "docker build ${this.context} -t ${this.fullAddress} -f ${this.dockerfile} "
+            String stage = "${env.stage_name}-build"
+            updateGitlabCommitStatus(name: "${stage}", state: 'success')
         }catch (Exception exc) {
             throw exc
         }

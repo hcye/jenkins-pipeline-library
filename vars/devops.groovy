@@ -1,7 +1,9 @@
-import com.hcye.build
+import com.hcye.*
 def docker(String repo, String tag, String credentialsId, String dockerfile="Dockerfile", String context="."){
     return new build().init( repo,  tag,  credentialsId,  dockerfile="Dockerfile",  context=".")
 }
 
 
-docker('harbor.synsense-neuromorphic.com/local/ci-tools:withsonar','latest','dockerid').docker_login()
+def scan(String projectVersion="", Boolean waitScan = true){
+    return new sonar(projectVersion,waitScan)
+}
