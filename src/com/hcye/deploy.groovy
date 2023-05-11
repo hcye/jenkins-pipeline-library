@@ -25,7 +25,20 @@ def start(){
 def check() {
 
 //        def endTime = TimeCategory.plus(new Date(), TimeCategory.getMinutes(timeoutMinutes, 5))  // 5minute timeout
-        this.isDeploymentReady()
+    int counter=0
+    for(int i=0;i++;i<10){
+        if(this.isDeploymentReady()){
+            counter +=1
+            sleep(5)
+        }
+        if (counter==5){
+            String CU_NAME=env.STAGE_NAME+"_deploy_check"
+            updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
+            return true
+        }
+    }
+    return false
+}
 //        while (true) {
 //            if (new Date() >= endTime) {
 //                //超时了，则宣告pod状态不对
@@ -50,22 +63,24 @@ def check() {
 //            }
 //        }
 
-}
 def isDeploymentReady(){
     sh "kubectl get -f ${this.resourcePath}/ | grep -v READY > status"
     String datas = readFile "status"
 //    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 //    eladmin   3/3     3            3           26d
     List<String> dts= datas.split(' ')
-    print(dts)
     int counter=0;
     for(String i in dts){
         if(i.strip().length()>0){
             counter +=1;
         }
         if (counter == 2){
-            print(i)
-            return i
+            i_s=i.split('/')
+            if (i_s[0].equals(i_s[1])) {
+                return true
+            }else {
+                return false}
+
         }
     }
 //    apiVersion: apps/v1
