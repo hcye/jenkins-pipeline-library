@@ -26,23 +26,25 @@ def check() {
     echo "start check"
 //        def endTime = TimeCategory.plus(new Date(), TimeCategory.getMinutes(timeoutMinutes, 5))  // 5minute timeout
     int counter=0
-    for(int i=0;i++;i<10){
+    int i=10
+    while (i>0){
         echo "into cycle"
         if(this.isDeploymentReady()){
-            counter +=1
-            print(counter)
-            sleep(1000)
+            counter +=1;
+            print(counter);
+            sleep(1000);
         }
         if (counter==5){
-            String CU_NAME=env.STAGE_NAME+"_deploy_check"
-            updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
-            echo 'check success!'
-            return true
+            String CU_NAME=env.STAGE_NAME+"_deploy_check";
+            updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success');
+            echo 'check success!';
+            return true;
 
         }
+        i -=1;
     }
-    echo 'check false!'
-    return false
+    echo 'check false!';
+    return false;
 }
 //        while (true) {
 //            if (new Date() >= endTime) {
