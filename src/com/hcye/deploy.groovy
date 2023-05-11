@@ -32,7 +32,7 @@ def check() {
         if(this.isDeploymentReady()){
             counter +=1;
             print(counter);
-            sleep(1000);
+            sleep(5);
         }
         if (counter==5){
             String CU_NAME=env.STAGE_NAME+"_deploy_check";
