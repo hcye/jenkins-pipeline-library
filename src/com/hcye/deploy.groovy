@@ -54,7 +54,7 @@ def check() {
 def isDeploymentReady(){
     sh "kubectl get -f ${this.resourcePath}/ > status"
     def datas = readFile "status"
-    print{datas}
+    print(datas)
 //    apiVersion: apps/v1
 //    kind: Deployment
 //    metadata:
