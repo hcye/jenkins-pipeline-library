@@ -29,7 +29,8 @@ def check() {
     for(int i=0;i++;i<10){
         if(this.isDeploymentReady()){
             counter +=1
-            sleep(5)
+            print(counter)
+            sleep(1000)
         }
         if (counter==5){
             String CU_NAME=env.STAGE_NAME+"_deploy_check"
