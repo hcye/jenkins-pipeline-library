@@ -33,6 +33,6 @@ def robotup() {
 }
 
 def helloworld(){
-    echo "${this.projectName}! hello world"
+    echo "${this.parms}! hello world"
 }
 
