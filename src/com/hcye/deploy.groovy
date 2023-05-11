@@ -52,9 +52,21 @@ def check() {
 
 }
 def isDeploymentReady(){
-    sh "kubectl get -f ${this.resourcePath}/ > status"
-    def datas = readFile "status"
-    print(datas)
+    sh "kubectl get -f ${this.resourcePath}/ | grep -v READY '> status"
+    String datas = readFile "status"
+//    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+//    eladmin   3/3     3            3           26d
+    List<String> dts= datas.split(' ')
+    int counter=0;
+    for(String i in dts){
+        if(i.strip().length()>0){
+            counter +=1;
+        }
+        if (counter == 2){
+            print(i)
+            return i
+        }
+    }
 //    apiVersion: apps/v1
 //    kind: Deployment
 //    metadata:
