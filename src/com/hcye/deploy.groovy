@@ -57,6 +57,7 @@ def isDeploymentReady(){
 //    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 //    eladmin   3/3     3            3           26d
     List<String> dts= datas.split(' ')
+    print(dts)
     int counter=0;
     for(String i in dts){
         if(i.strip().length()>0){
