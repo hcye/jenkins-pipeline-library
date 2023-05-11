@@ -12,6 +12,6 @@ def deploy(resourcePath){
     return new deploy().init(resourcePath)
 }
 
-def robot(sayhello){
-    return new robot().init(sayhello)
+def robot(parms){
+    return new robot().init(parms)
 }
