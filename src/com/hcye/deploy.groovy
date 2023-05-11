@@ -14,9 +14,57 @@ def start(){
         sh "kubectl apply -f ${this.resourcePath}/"
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} OK...  √")
+        return this
     } catch (Exception exc){
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'failed')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} failed...  √")
         throw exc
     }
+}
+
+def check() {
+    use(TimeCategory) {
+        def endTime = TimeCategory.plus(new Date(), TimeCategory.getMinutes(timeoutMinutes, 5))  // 5minute timeout
+        this.isDeploymentReady()
+//        while (true) {
+//            if (new Date() >= endTime) {
+//                //超时了，则宣告pod状态不对
+//                updateGitlabCommitStatus(name: 'deploy', state: 'failed')
+//                throw new Exception("deployment timed out...")
+//            }
+//            //循环检测当前deployment下的pod的状态
+//            try {
+//                if (this.isDeploymentReady()) {
+//                    readyCount++
+//                    if (readyCount > 5) {
+//                        updateGitlabCommitStatus(name: 'deploy', state: 'success')
+//                        break;
+//                    }
+//                } else {
+//                    readyCount = 0
+//                }
+//                //每次检测若不满足所有pod均正常，则sleep 5秒钟后继续检测
+//                sleep(5)
+//            } catch (Exception exc) {
+//                echo exc.toString()
+//            }
+//        }
+    }
+}
+def isDeploymentReady(){
+    sh "kubectl get -f ${this.resourcePath}/ > status"
+    def datas = readFile "status"
+    print{datas}
+//    apiVersion: apps/v1
+//    kind: Deployment
+//    metadata:
+//    generation: 2
+//    labels:
+//    app: eladmin
+//    name: eladmin
+//    namespace: eladmin
+
+}
+def getNS(){
+    sh "cat "
 }
