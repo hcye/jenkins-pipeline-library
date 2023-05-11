@@ -77,8 +77,10 @@ def isDeploymentReady(){
         if (counter == 2){
             i_s=i.split('/')
             if (i_s[0].equals(i_s[1])) {
+                print("true")
                 return true
             }else {
+                print("false" )
                 return false}
 
         }
