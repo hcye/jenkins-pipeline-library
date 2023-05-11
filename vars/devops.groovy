@@ -11,3 +11,7 @@ def scan(String projectVersion="", Boolean waitScan = true){
 def deploy(resourcePath){
     return new deploy().init(resourcePath)
 }
+
+def robot(sayhello){
+    return new robot().init(sayhello)
+}
