@@ -23,8 +23,8 @@ def start(){
 }
 
 def check() {
-    use(TimeCategory) {
-        def endTime = TimeCategory.plus(new Date(), TimeCategory.getMinutes(timeoutMinutes, 5))  // 5minute timeout
+
+//        def endTime = TimeCategory.plus(new Date(), TimeCategory.getMinutes(timeoutMinutes, 5))  // 5minute timeout
         this.isDeploymentReady()
 //        while (true) {
 //            if (new Date() >= endTime) {
@@ -49,7 +49,7 @@ def check() {
 //                echo exc.toString()
 //            }
 //        }
-    }
+
 }
 def isDeploymentReady(){
     sh "kubectl get -f ${this.resourcePath}/ > status"
