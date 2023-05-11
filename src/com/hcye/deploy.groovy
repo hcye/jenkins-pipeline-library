@@ -52,7 +52,7 @@ def check() {
 
 }
 def isDeploymentReady(){
-    sh "kubectl get -f ${this.resourcePath}/ | grep -v READY '> status"
+    sh "kubectl get -f ${this.resourcePath}/ | grep -v READY > status"
     String datas = readFile "status"
 //    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 //    eladmin   3/3     3            3           26d
