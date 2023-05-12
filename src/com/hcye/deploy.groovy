@@ -14,6 +14,7 @@ def start(){
         //env.CURRENT_IMAGE用来存储当前构建的镜像地址，需要在Docker.groovy中设置值
         String namespace='asm-dev'
         if(env.TAG_NAME){
+            echo env.TAG_NAME
             namespace = "asm"
         }
         json_data=this.CM_KV(namespace)
