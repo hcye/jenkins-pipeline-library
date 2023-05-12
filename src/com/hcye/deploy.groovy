@@ -18,10 +18,11 @@ def start(){
             ingress = "blog-test.luffy.com"
         }
         json_data=this.CM_KV(namespace)
-        echo json_data["data"]["domain"]
-        echo json_data["data"]["namespace"]
+        String domainname=json_data["data"]["domain"]
+        String ns=json_data["data"]["namespace"]
         sh "sed -i 's#{{IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
-        sh "sed -i 's#{{NAMESPACE}}#${namespace}#g' ${this.resourcePath}/*"
+        sh "sed -i 's#{{NAMESPACE}}#${ns}#g' ${this.resourcePath}/*"
+        sh "sed -i 's#{{DOMAIN}}#${domainname}#g' ${this.resourcePath}/*"
         sh "kubectl apply -f ${this.resourcePath}/"
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} OK...  √")
