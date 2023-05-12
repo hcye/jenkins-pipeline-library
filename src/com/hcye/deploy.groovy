@@ -1,5 +1,7 @@
 package com.hcye
 
+import groovy.json.JsonSlurperClassic
+
 def init(String resourcePath){
     this.resourcePath = resourcePath
 //    this.msg = new BuildMessage()
@@ -10,16 +12,33 @@ def init(String resourcePath){
 def start(){
     try{
         //env.CURRENT_IMAGE用来存储当前构建的镜像地址，需要在Docker.groovy中设置值
-        sh "sed -i 's#{{ELADMIN-IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
+        String namespace='asm'
+        if(env.TAG_NAME){
+            namespace = "asm-dev"
+            ingress = "blog-test.luffy.com"
+        }
+        json_data=this.CM_KV(namespace)
+        echo json_data["data"]
+        sh "sed -i 's#{{IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
+        sh "sed -i 's#{{NAMESPACE}}#${namespace}#g' ${this.resourcePath}/*"
         sh "kubectl apply -f ${this.resourcePath}/"
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} OK...  √")
+
         return this
     } catch (Exception exc){
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'failed')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} failed...  √")
         throw exc
     }
+}
+
+def CM_KV(namespace){
+    sh 'kubectl -n asm get cm library-config -ojson > cm.json'
+    def jsonStr = readFile "cm.json"
+    def jsonSlurper = new JsonSlurperClassic()
+    def jsonObj = jsonSlurper.parseText(jsonStr)
+    return jsonObj
 }
 
 def check() {

@@ -8,6 +8,7 @@ def scan(String projectVersion="", Boolean waitScan = true){
     return new sonar().init(projectVersion,waitScan)
 }
 
+
 def deploy(resourcePath){
     return new deploy().init(resourcePath)
 }

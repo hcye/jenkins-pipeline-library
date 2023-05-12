@@ -7,6 +7,7 @@ pipeline {
         gitLabConnection('jenkins')
     }
     environment {
+        BRANCH_NAMESPACE='dev/asm-dev'
         IMAGE_REPO = "harbor.synsense-neuromorphic.com/local/eladmin-api"
         IMAGE_CREDENTIAL = "docker-user-pwd"
     }
