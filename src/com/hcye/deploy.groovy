@@ -12,9 +12,9 @@ def init(String resourcePath){
 def start(){
     try{
         //env.CURRENT_IMAGE用来存储当前构建的镜像地址，需要在Docker.groovy中设置值
-        String namespace='asm'
+        String namespace='asm-dev'
         if(env.TAG_NAME){
-            namespace = "asm-dev"
+            namespace = "asm"
         }
         json_data=this.CM_KV(namespace)
         String domainname=json_data["data"]["domain"]
