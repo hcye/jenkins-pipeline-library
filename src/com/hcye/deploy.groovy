@@ -18,7 +18,8 @@ def start(){
             ingress = "blog-test.luffy.com"
         }
         json_data=this.CM_KV(namespace)
-        echo json_data["data"]
+        echo json_data["data"]["domain"]
+        echo json_data["data"]["namespace"]
         sh "sed -i 's#{{IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
         sh "sed -i 's#{{NAMESPACE}}#${namespace}#g' ${this.resourcePath}/*"
         sh "kubectl apply -f ${this.resourcePath}/"
