@@ -5,7 +5,7 @@ def init(parms){
     return this
 }
 
-def robotup() {
+def start() {
     try{
         echo "Trigger to execute Acceptance Testing"
         def rf = build job: 'robot',    //project name
