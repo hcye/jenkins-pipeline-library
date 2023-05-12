@@ -15,7 +15,6 @@ def start(){
         String namespace='asm'
         if(env.TAG_NAME){
             namespace = "asm-dev"
-            ingress = "blog-test.luffy.com"
         }
         json_data=this.CM_KV(namespace)
         String domainname=json_data["data"]["domain"]
@@ -68,7 +67,7 @@ def check() {
 }
 
 def isDeploymentReady(){
-    sh "kubectl get -f ${this.resourcePath}/ | grep -v READY > status"
+    sh "kubectl get -f ${this.resourcePath}/asm-deploy.yaml | grep -v READY > status"
     String datas = readFile "status"
 //    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 //    eladmin   3/3     3            3           26d
