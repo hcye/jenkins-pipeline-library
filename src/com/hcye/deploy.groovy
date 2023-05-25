@@ -9,21 +9,18 @@ def init(String resourcePath){
 }
 
 
-def start(){
+def start(String deploy_ns,String dev_ns){
     try{
         //env.CURRENT_IMAGE用来存储当前构建的镜像地址，需要在Docker.groovy中设置值
-        String namespace='asm-dev'
-        echo "adasdasdasdas"
+        String namespace=dev_ns
         if(env.TAG_NAME){
-            echo 'asdasd$asdasd'
             echo env.TAG_NAME
-            namespace = "asm"
+            namespace = deploy_ns
         }
         json_data=this.CM_KV(namespace)
         String domainname=json_data["data"]["domain"]
-        String ns=json_data["data"]["namespace"]
         sh "sed -i 's#{{IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
-        sh "sed -i 's#{{NAMESPACE}}#${ns}#g' ${this.resourcePath}/*"
+        sh "sed -i 's#{{NAMESPACE}}#${namespace}#g' ${this.resourcePath}/*"
         sh "sed -i 's#{{DOMAIN}}#${domainname}#g' ${this.resourcePath}/*"
         sh "kubectl apply -f ${this.resourcePath}/"
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
@@ -70,7 +67,7 @@ def check() {
 }
 
 def isDeploymentReady(){
-    sh "kubectl get -f ${this.resourcePath}/asm-deploy.yaml | grep -v READY > status"
+    sh "kubectl get -f ${this.resourcePath}/deploy.yaml | grep -v READY > status"
     String datas = readFile "status"
 //    NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 //    eladmin   3/3     3            3           26d

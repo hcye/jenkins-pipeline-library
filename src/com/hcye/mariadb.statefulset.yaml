@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  namespace: asm
+  labels:
+    app: mariadb
+spec:
+  replicas: 3
+  serviceName: "mariadb-sts"    # 对应的无头服务名
+  selector:
+    matchLabels:
+      app: mariadb-sts
+  template:
+    metadata:
+      labels:
+        app: mariadb-sts
+    spec:
+      containers:
+        - name: mariadb
+          image: harbor.synsense-neuromorphic.com/local/mariadb-asm
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mariadb-pvc
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:  # vct针对statefulset 创建多个副本时每个副本需要不同的pv，使用vct自动创建pvc。并用于给上方挂载
+    - metadata:
+        name: mariadb-pvc
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "nfs"
+        resources:
+          requests:
+            storage: 200M
