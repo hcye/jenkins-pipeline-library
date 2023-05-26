@@ -2,8 +2,9 @@ package com.hcye
 
 import groovy.json.JsonSlurperClassic
 
-def init(String resourcePath){
+def init(String resourcePath,String domainName){
     this.resourcePath = resourcePath
+    this.domainName = domainName
 //    this.msg = new BuildMessage()
     return this
 }
@@ -17,11 +18,11 @@ def start(String deploy_ns,String dev_ns){
             echo env.TAG_NAME
             namespace = deploy_ns
         }
-        json_data=this.CM_KV(namespace)
-        String domainname=json_data["data"]["domain"]
+//        json_data=this.CM_KV(namespace)
+//        String domainname=json_data["data"]["user_svc_domain"]
         sh "sed -i 's#{{IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
         sh "sed -i 's#{{NAMESPACE}}#${namespace}#g' ${this.resourcePath}/*"
-        sh "sed -i 's#{{DOMAIN}}#${domainname}#g' ${this.resourcePath}/*"
+        sh "sed -i 's#{{DOMAIN}}#${this.domainName}#g' ${this.resourcePath}/*"
         sh "kubectl apply -f ${this.resourcePath}/"
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} OK...  √")
@@ -34,13 +35,13 @@ def start(String deploy_ns,String dev_ns){
     }
 }
 
-def CM_KV(namespace){
-    sh 'kubectl -n ' +namespace+ ' get cm library-config -ojson > cm.json'
-    def jsonStr = readFile "cm.json"
-    def jsonSlurper = new JsonSlurperClassic()
-    def jsonObj = jsonSlurper.parseText(jsonStr)
-    return jsonObj
-}
+//def CM_KV(namespace){
+//    sh 'kubectl -n ' +namespace+ ' get cm library-config -ojson > cm.json'
+//    def jsonStr = readFile "cm.json"
+//    def jsonSlurper = new JsonSlurperClassic()
+//    def jsonObj = jsonSlurper.parseText(jsonStr)
+//    return jsonObj
+//}
 
 def check() {
     echo "start check"
