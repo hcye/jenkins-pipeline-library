@@ -2,15 +2,14 @@ package com.hcye
 
 import groovy.json.JsonSlurperClassic
 
-def init(String resourcePath,String domainName){
+def init(String resourcePath){
     this.resourcePath = resourcePath
-    this.domainName = domainName
 //    this.msg = new BuildMessage()
     return this
 }
 
 
-def start(String deploy_ns,String dev_ns){
+def start(String deploy_ns,String dev_ns,String domainName){
     try{
         //env.CURRENT_IMAGE用来存储当前构建的镜像地址，需要在Docker.groovy中设置值
         String namespace=dev_ns
@@ -22,7 +21,7 @@ def start(String deploy_ns,String dev_ns){
 //        String domainname=json_data["data"]["user_svc_domain"]
         sh "sed -i 's#{{IMAGE}}#${env.CURRENT_IMAGE}#g' ${this.resourcePath}/*"
         sh "sed -i 's#{{NAMESPACE}}#${namespace}#g' ${this.resourcePath}/*"
-        sh "sed -i 's#{{DOMAIN}}#${this.domainName}#g' ${this.resourcePath}/*"
+        sh "sed -i 's#{{DOMAIN}}#${domainName}#g' ${this.resourcePath}/*"
         sh "kubectl apply -f ${this.resourcePath}/"
         updateGitlabCommitStatus(name: env.STAGE_NAME, state: 'success')
 //        this.msg.updateBuildMessage(env.BUILD_TASKS, "${env.stage_name} OK...  √")
