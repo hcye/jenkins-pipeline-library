@@ -9,7 +9,7 @@ def scan(String projectVersion="", Boolean waitScan = true){
 }
 
 
-def deploy(resourcePath){
+def apply(resourcePath){
     return new deploy().init(resourcePath)
 }
 
