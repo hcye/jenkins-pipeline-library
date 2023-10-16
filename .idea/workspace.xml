@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ce03ff36-fd0a-4696-bc50-7a0c0e94b262" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/hcye/deploy.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/hcye/deploy.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +37,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/hcye/IdeaProjects/eureka-server&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/root/IdeaProjects/globale-shared-library&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
@@ -106,6 +112,9 @@
       <workItem from="1684979316729" duration="5743000" />
       <workItem from="1685010260164" duration="13000" />
       <workItem from="1685067127576" duration="1070000" />
+      <workItem from="1687836747658" duration="2160000" />
+      <workItem from="1697189460443" duration="1806000" />
+      <workItem from="1697425233235" duration="732000" />
     </task>
     <servers />
   </component>
