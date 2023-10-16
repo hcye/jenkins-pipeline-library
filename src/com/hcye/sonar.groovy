@@ -22,7 +22,7 @@ def start() {
 }
 
 def startToSonar() {
-    withSonarQubeEnv('sonarqube') {
+    withSonarQubeEnv('sonar') {
         sh "sonar-scanner -X;"
         sleep 5
     }
